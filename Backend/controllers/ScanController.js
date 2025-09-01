@@ -3,7 +3,7 @@ import StorageService from "../config/storageService.js";
 export default class ScanController {
   constructor(scanModel) {
     this.scanModel = scanModel;
-    this.storageService = new StorageService(); // ✅ use your unified storage service
+    this.storageService = new StorageService();
   }
 
   uploadScan = async (req, res) => {
@@ -15,12 +15,9 @@ export default class ScanController {
         return res.status(400).json({ error: "No file uploaded" });
       }
 
-      // ✅ Upload using the selected provider (Cloudinary or Azure Storage)
       const fileUrl = await this.storageService.upload(file);
-
       const uploadDate = new Date().toISOString();
 
-      // ✅ Save scan details in DB
       await this.scanModel.insertScan(
         patientName,
         patientId,
@@ -32,10 +29,7 @@ export default class ScanController {
 
       res.json({ message: "Scan uploaded successfully", fileUrl });
     } catch (err) {
-      console.error("Upload error:", err.message);
-      res
-        .status(500)
-        .json({ error: "Upload failed", details: err.message });
+      res.status(500).json({ error: "Upload failed", details: err.message });
     }
   };
 
@@ -44,9 +38,15 @@ export default class ScanController {
       const scans = await this.scanModel.getAllScans();
       res.json(scans);
     } catch (err) {
-      res
-        .status(500)
-        .json({ error: "Failed to fetch scans", details: err.message });
+      res.status(500).json({ error: "Failed to fetch scans", details: err.message });
+    }
+  };
+
+  getScanById = async (id) => {
+    try {
+      return await this.scanModel.getScanById(id);
+    } catch (err) {
+      throw new Error("Failed to fetch scan: " + err.message);
     }
   };
 }

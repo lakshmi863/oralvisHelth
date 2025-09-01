@@ -27,4 +27,8 @@ export default class ScanModel {
   async getAllScans() {
     return this.db.all("SELECT * FROM scans");
   }
+
+  async getScanById(id) {
+    return this.db.get("SELECT * FROM scans WHERE id = ?", [id]);
+  }
 }

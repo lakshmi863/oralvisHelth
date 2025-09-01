@@ -18,7 +18,11 @@ export default class UserModel {
     return this.db.get("SELECT * FROM users WHERE email = ?", [email]);
   }
 
-  async insertUser(email, password, role) {
-    return this.db.run("INSERT INTO users (email, password, role) VALUES (?, ?, ?)", [email, password, role]);
+  // 🔑 renamed from insertUser → createUser
+  async createUser(email, password, role) {
+    return this.db.run(
+      "INSERT INTO users (email, password, role) VALUES (?, ?, ?)",
+      [email, password, role]
+    );
   }
 }

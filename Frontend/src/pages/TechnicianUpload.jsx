@@ -1,5 +1,6 @@
 import { useState } from "react";
 import API from "../api/api";
+import "./TechnicianUpload.css"; // ✅ Import styles
 
 export default function TechnicianUpload() {
   const [form, setForm] = useState({
@@ -25,18 +26,36 @@ export default function TechnicianUpload() {
   };
 
   return (
-    <div className="p-6">
-      <h2 className="text-xl mb-4">Upload Scan</h2>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-2">
-        <input name="patientName" placeholder="Patient Name" onChange={handleChange} />
-        <input name="patientId" placeholder="Patient ID" onChange={handleChange} />
-        <select name="region" onChange={handleChange}>
+    <div className="upload-container">
+      <h2 className="upload-title">Upload Scan</h2>
+      <form onSubmit={handleSubmit} className="upload-form">
+        <input
+          className="upload-input"
+          name="patientName"
+          placeholder="Patient Name"
+          onChange={handleChange}
+        />
+        <input
+          className="upload-input"
+          name="patientId"
+          placeholder="Patient ID"
+          onChange={handleChange}
+        />
+        <select
+          className="upload-select"
+          name="region"
+          onChange={handleChange}
+        >
           <option>Frontal</option>
           <option>Upper Arch</option>
           <option>Lower Arch</option>
         </select>
-        <input type="file" onChange={(e) => setFile(e.target.files[0])} />
-        <button className="bg-green-500 text-white px-4 py-2">Upload</button>
+        <input
+          type="file"
+          className="upload-file"
+          onChange={(e) => setFile(e.target.files[0])}
+        />
+        <button className="upload-button">Upload</button>
       </form>
     </div>
   );
