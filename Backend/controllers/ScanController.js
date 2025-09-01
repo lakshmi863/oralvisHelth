@@ -15,7 +15,7 @@ export default class ScanController {
         return res.status(400).json({ error: "No file uploaded" });
       }
 
-      // ✅ Upload using the selected provider (Cloudinary or Azure)
+      // ✅ Upload using the selected provider (Cloudinary or Azure Storage)
       const fileUrl = await this.storageService.upload(file);
 
       const uploadDate = new Date().toISOString();
