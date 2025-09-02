@@ -14,15 +14,19 @@ export default class UserModel {
     `);
   }
 
-  async findByEmail(email) {
-    return this.db.get("SELECT * FROM users WHERE email = ?", [email]);
-  }
-
-  // 🔑 renamed from insertUser → createUser
-  async createUser(email, password, role) {
-    return this.db.run(
-      "INSERT INTO users (email, password, role) VALUES (?, ?, ?)",
+  async createUser(email, password, role = "Dentist") {
+    const result = await this.db.run(
+      `INSERT INTO users (email, password, role) VALUES (?, ?, ?)`,
       [email, password, role]
     );
+    return { id: result.lastID, email, role };
+  }
+
+  async getUserByEmail(email) {
+    return await this.db.get(`SELECT * FROM users WHERE email = ?`, [email]);
+  }
+
+  async getAllUsers() {
+    return await this.db.all(`SELECT * FROM users`);
   }
 }

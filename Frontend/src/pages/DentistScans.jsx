@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import API from "../api/api";
+import Navbar from "../components/Navbar";
 import "./DentistScans.css"; // ✅ Import styles
 
 export default function DentistScans() {
@@ -30,6 +31,7 @@ export default function DentistScans() {
 
   return (
     <div className="scans-container">
+         <Navbar />
       <h2 className="scans-title">🦷 Patient Scans</h2>
 
       <div className="scans-grid">

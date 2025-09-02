@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import API from "../api/api";
+import Navbar from "../components/Navbar";
 import "./TechnicianUpload.css"; // ✅ Import styles
 
 export default function TechnicianUpload() {
@@ -10,6 +12,7 @@ export default function TechnicianUpload() {
     region: "Frontal",
   });
   const [file, setFile] = useState(null);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -21,12 +24,33 @@ export default function TechnicianUpload() {
     Object.entries(form).forEach(([key, val]) => data.append(key, val));
     data.append("file", file);
 
-    await API.post("/scans/upload", data);
-    alert("Uploaded successfully");
+    try {
+      await API.post("/scans/upload", data);
+      alert("✅ Uploaded successfully");
+
+      // 🔄 Reset state & form
+      setForm({
+        patientName: "",
+        patientId: "",
+        scanType: "RGB",
+        region: "Frontal",
+      });
+      setFile(null);
+      e.target.reset(); // clears file input
+
+      // 🚪 Logout immediately after upload
+      localStorage.removeItem("token");
+      sessionStorage.removeItem("token");
+      navigate("/login");
+    } catch (err) {
+      console.error("❌ Upload failed:", err);
+      alert("Upload failed, try again.");
+    }
   };
 
   return (
     <div className="upload-container">
+      <Navbar />
       <h2 className="upload-title">Upload Scan</h2>
       <form onSubmit={handleSubmit} className="upload-form">
         <input
@@ -49,6 +73,12 @@ export default function TechnicianUpload() {
           <option>Frontal</option>
           <option>Upper Arch</option>
           <option>Lower Arch</option>
+          <option>CBC</option>
+          <option>MRI</option>
+          <option>ECG</option>
+          <option>X-Ray</option>
+          <option>CT Scan</option>
+          <option>Ultrasound</option>
         </select>
         <input
           type="file"
