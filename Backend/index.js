@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import bcrypt from "bcryptjs";  // 👈 add this
+import bcrypt from "bcryptjs";
 import { initDB } from "./config/db.js";
 import UserModel from "./models/UserModel.js";
 import ScanModel from "./models/ScanModel.js";
@@ -16,10 +16,11 @@ console.log("🔐 Loaded JWT_SECRET:", process.env.JWT_SECRET);
 const startServer = async () => {
   const app = express();
 
-  // ✅ Fix CORS
+  // ✅ Allowed origins (frontend + local dev)
   const allowedOrigins = [
-    process.env.CLIENT_ORIGIN, // from .env (5173)
-    "http://localhost:3000",   // CRA fallback
+    process.env.CLIENT_ORIGIN, // from .env (optional)
+    "http://localhost:3000",   // CRA dev
+    "https://oralvishelth-care-demo-pbb3.onrender.com", // Render frontend
   ];
 
   app.use(
@@ -40,7 +41,6 @@ const startServer = async () => {
 
   // ✅ Init DB
   const db = await initDB();
-
   const userModel = new UserModel(db);
   const scanModel = new ScanModel(db);
 
