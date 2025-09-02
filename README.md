@@ -1,6 +1,11 @@
 web sit link ( https://oralvishelth-care-demo-pbb3.onrender.com )
 demo vedio link ( https://drive.google.com/file/d/1QSyl-p17OB92QH6zyOrLAaioGk03le7G/view?usp=drive_link )
 
+signup view : <img width="340" height="346" alt="signup" src="https://github.com/user-attachments/assets/ebd8d4c0-46b4-48aa-86b4-9a198021feb2" />
+
+
+upload view:
+
 <img width="768" height="638" alt="upload" src="https://github.com/user-attachments/assets/b1da4049-550f-44c1-be8f-b3f9971a832e" />
 
 
