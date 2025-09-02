@@ -14,6 +14,9 @@ upload view:
 
 <img width="768" height="638" alt="upload" src="https://github.com/user-attachments/assets/b1da4049-550f-44c1-be8f-b3f9971a832e" />
 
+detainl view: 
+<img width="2862" height="2828" alt="patent" src="https://github.com/user-attachments/assets/ff19cfcc-19ea-47bc-82a2-f77a7f4f6a60" />
+
 
 🦷 OralVis Health
 
